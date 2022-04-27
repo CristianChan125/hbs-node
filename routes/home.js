@@ -1,13 +1,12 @@
 const express = require('express')
+const { leerUrls, agregarUrl, eliminarUrl, editarUrlForm, editarUrl, redireccionamiento} = require('../controllers/homeController')
+const urlValidar = require('../middlewares/urlValida')
 const router = express.Router()
 
-router.get("/",(req,res)=>{
-    const urls = [
-        {origin:"www.chancorp.com/bluuweb1", shortURL:"kjasdjkas1"},
-        {origin:"www.chancorp.com/bluuweb2", shortURL:"kjasdjkas2"},
-        {origin:"www.chancorp.com/bluuweb3", shortURL:"kjasdjkas2"}
-    ]
-    res.render("home",{urls:urls})
-})
-
+router.get("/",leerUrls);
+router.post("/" , agregarUrl);
+router.get('/eliminar/:id',urlValidar,eliminarUrl);
+router.get('/editar/:id',editarUrlForm)
+router.post('/editar/:id',urlValidar,editarUrl)
+router.get("/:shortURL",redireccionamiento)
 module.exports = router
